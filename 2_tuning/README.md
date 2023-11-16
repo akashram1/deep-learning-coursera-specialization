@@ -41,6 +41,16 @@ In decreasing order of importance
 - Helps make contours more spherical. 
 - Might not want the `z` in a layer to have `mean = 0 and var = 1` (ReLU). So:
 ```math
-z^{(i)} = γ^{(i)} * z^{(i)}_{norm} + β^{(i)} (not same as momentum)
+z^{(i)} = γ^{(i)} * z^{(i)}_{norm} + β^{(i)} 
 ```
-- The `γ` and `β` are params updated like W and b. 
+- The `γ` and `β` are params updated like W and b (mini-batch gradient descent). 
+- `β` is not same as momentum hyperparam. 
+
+:star: Since the above $z^{(i)}$ formula has a bias component, ignore bias `b` in the unnormalized weighted sum. :star:
+
+- :star: Intuitions:
+  - Make deeper layers more responsive to earlier layers.
+  - If earlier layer activations change (covariate / distribution shift in input data), then outputs of later 
+  layers impacted. They haven't seen this data before. Normalizing ensures activations always in expected distribution. 
+  - Each mini batch's linear sum is scaled by the mean/variance computed ONLY ON THAT MINI BATCH! (Not across whole
+  training set. So there is some regularizing noise added to the $z^{i}$ values like dropout.)
