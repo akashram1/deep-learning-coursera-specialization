@@ -1,6 +1,7 @@
 # Course 2: 
 
 # Week 3: Tuning & Tensorflow
+## Hyperparam Search
 ### Hyperparm Importance
 In decreasing order of importance
 1. Learning rate α 
@@ -26,5 +27,20 @@ In decreasing order of importance
 3. Exponentially weighted averages:
    1. β = 0.9 is averaging over last 10 gradients. β = 0.999 is last 1K gradients. 
    2. So flip it to `1 - β in [0.1, 0.001]` and do the `log` transformation
-   3. Eg: `0.9 -> 0.9005` is `~ 10 iterations` (from $\frac{1}{1 - \beta}$)
+   3. Eg: `0.9 -> 0.9005` is `~ 10 iterations` (from $num_iter = \frac{1}{1 - \beta}$). But `0.999 -> 0.9995` changes from `1K -> 2K` prev gradients.
+
 :star:Searching in `log` and not `linear` scale will improve odds you land on range where β sensitivity is high (`0.999 -> 0.9995`)  :star:
+
+### Intuitions are not frequently transferable
+- Re-evaluate hyperparms every few months. 
+- `Caviar Approach` : If you can train multiple models in parallel. 
+- `Panda Approach`: Train 1 model at a time, trying out changes in hyperparams if needed. 
+-----------------
+## Batch Normalization
+- Normalize linear sum `z` across neurons in a layer. 
+- Helps make contours more spherical. 
+- Might not want the `z` in a layer to have `mean = 0 and var = 1` (ReLU). So:
+```math
+z^{(i)} = γ^{(i)} * z^{(i)}_{norm} + β^{(i)} (not same as momentum)
+```
+- The `γ` and `β` are params updated like W and b. 
