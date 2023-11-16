@@ -7,4 +7,4 @@ In decreasing order of importance
 2. Momentum β, # of hidden units, mini batch size
 
 
-:star:
+:star: <span style="color:green"> # units > layers </span>
