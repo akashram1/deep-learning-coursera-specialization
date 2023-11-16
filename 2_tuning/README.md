@@ -5,7 +5,7 @@
 In decreasing order of importance
 1. Learning rate α 
 2. Momentum β (~0.9), # of hidden units, mini batch size
-3. # of Layers, learning rate decay
+3. Num. of Layers, learning rate decay
 4. With Adam, tuning params not worth it. β1 ~ 0.9, β2 ~ 0.999 and ε 10e-8 
 
 :star: # units > layers :star:
@@ -25,6 +25,6 @@ In decreasing order of importance
 
 3. Exponentially weighted averages:
    1. β = 0.9 is averaging over last 10 gradients. β = 0.999 is last 1K gradients. 
-   2. So flip it to `1 - β in [0.1, 0.001]` and do the `log` transformation 
-
+   2. So flip it to `1 - β in [0.1, 0.001]` and do the `log` transformation
+   3. Eg: `0.9 -> 0.9005` is `~ 10 iterations` (from $\frac{1}{1 - \beta}$)
 :star:Searching in `log` and not `linear` scale will improve odds you land on range where β sensitivity is high (`0.999 -> 0.9995`)  :star:
