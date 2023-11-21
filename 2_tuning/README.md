@@ -10,6 +10,7 @@ In decreasing order of importance
 4. With Adam, tuning params not worth it. β1 ~ 0.9, β2 ~ 0.999 and ε 10e-8 
 
 :star: # units > layers :star:
+:question: Where does dropout fall in this list ?
 
 ### How to Search ?
 1. `Grid Search`: Good for few hyperparams. Waste on larger scale as some hyperparam changes are not worth it (like ε).
@@ -43,6 +44,7 @@ In decreasing order of importance
 ```math
 z^{(i)} = γ^{(i)} * z^{(i)}_{norm} + β^{(i)} 
 ```
+![alt text](images/batch_norm_eq.png)
 - The `γ` and `β` are params updated like W and b (mini-batch gradient descent). 
 - `β` is not same as momentum hyperparam. 
 
@@ -53,4 +55,13 @@ z^{(i)} = γ^{(i)} * z^{(i)}_{norm} + β^{(i)}
   - If earlier layer activations change (covariate / distribution shift in input data), then outputs of later 
   layers impacted. They haven't seen this data before. Normalizing ensures activations always in expected distribution. 
   - Each mini batch's linear sum is scaled by the mean/variance computed ONLY ON THAT MINI BATCH! (Not across whole
-  training set. So there is some regularizing noise added to the $z^{i}$ values like dropout.)
+  training set. So there is some slight regularizing noise added to the $z^{i}$ values like dropout.) 
+
+:star: Use Batch Norm to better learn covariate shifts. Regularization is just unintended side-effect that goes down
+with increase in mini-batch size:star:
+
+During test time:
+- Samples are sent 1 at a time (and not mini batches).
+- So how to calculate mean and variance on 1 example ?
+- `Option 1`: Pass whole training set through **final** network once and calculate mean and variance for every layer.
+- `Option 2` (more common): Keep track of exponentially weighted moving average of mean and variance for every mini bqtch during training.
