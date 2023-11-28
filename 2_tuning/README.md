@@ -65,3 +65,11 @@ During test time:
 - So how to calculate mean and variance on 1 example ?
 - `Option 1`: Pass whole training set through **final** network once and calculate mean and variance for every layer.
 - `Option 2` (more common): Keep track of exponentially weighted moving average of mean and variance for every mini bqtch during training.
+
+## Tensorflow
+- `tf.Variable`: For weights and biases whose values keep changing
+- `tf.Constant`: For input dataset
+- `tape.gradient` function: allows you to retrieve the operations recorded for automatic differentiation inside the 
+GradientTape block. Then, calling the optimizer method `apply_gradients`, will apply the optimizer's update rules to 
+each trainable parameter.
+![alt text](images/tape.png)
