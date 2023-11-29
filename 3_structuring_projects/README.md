@@ -2,7 +2,7 @@
 #### :star: Best ML engineers know which specific knob to tune to achieve specific effect Y :star:
 -  Things you don't learn in any other course ! Takes years of real world experience
 
-## Theme of ML Strategy
+## I. Theme of ML Strategy
 ### Orthogonalization
 - Process of turning 1 specific knob to tune 1 aspect of performance. Fine grained control. 
 - Not orthogonal = 1 knob to tune multiple parameters. Eg: One button on TV that controls image width, height, slanting
@@ -11,25 +11,27 @@ based on this eqn:
 
 ![alt text](images/ortho.png)
 
-## Setting Up Your Goal
+## II. Setting Up Your Goal
 :star: Make iterations faster. Automate ! :star:
 
-### Single Number Metric
+### 1. Single Number Metric
 - `F1 Score` better than using 2 metrics `Precision` and `Recall`. Coz if one model has better precision but other has
 better recall, which one do you choose ? Go with better `F1 score` (harmonic mean of the 2)
 - Use `average` error across classes. 
-- Help :star: quick iteration !:star:
+- Helps :star: quick iteration !:star:
+
 ![single number metric](images/error_per_class.png)
 
-## Optimizing and Satisficing Metric
+### 2. Optimizing and Satisficing Metric
 - If average is not meaningful (like find best model using accuracy and runtime), use this. 
 - When there are `N` metrics you want to tune, choose `1` to optimize and the other `N-1` can become `satisficing` i.e.
 the performance is subject to some threshold.
 - Maximize `accuracy` subject to `runtime <= 100ms`. Easier to pick best performing model. 
 - Satisficing = Satisfy + Sacrifice
+
 ![satisfice](images/satisficing.png)
 
-## Setting up Dev & Test Sets
+### 3. Setting up Dev & Test Sets
 - No point if dev and test sets are in different distributions. Because `months` of optimizing on dev set + metric will
 perform poorly on test set. 
 - Randomly shuffle data to ensure dev and test sets have same distribution. 
@@ -37,7 +39,7 @@ perform poorly on test set.
   - reflect future data and 
   - cover important cases that you want to do well on. 
 
-## Dev & Test Set Sizes
+### 4. Dev & Test Set Sizes
 - Old Era 
   - Total dataset size < `10K`. So train, dev, test split ~ `60%, 20%, 20%`
   - Lots of folks would only use train-test ~ `70-30` but use test and dev set (use test to make hyperparameter decisions)
@@ -45,18 +47,28 @@ perform poorly on test set.
   - Big data ~ `1M` samples. 
   - So train, dev, test ~ `98%,1%,1%`. You don't need more than `10k` samples for dev and test. 
 
-## When to change dev/test sets and metrics ?
-### Incorrect Metric
+### 5. When to change dev/test sets and metrics ?
+#### Incorrect Metric
 ```
 Algos for classification of cat images. 
 Algo A: 3 % error but shows porno images. 
 Algo B: 5 % error but doesn't classify any cat images as porn. 
 ```
 - So choose a better evaluation metric that penalizes porn images. 
+
 ![satisfice](images/change_metric.png)
 
-### Incorrect Dev/Test Sets.
+#### Incorrect Dev/Test Sets.
 - Dev/test set has clear cat images. But users upload blurry images. 
 :star: **Don't overthink. Choose. Build. Iterate. Fast** :star:
 
-## Comparing with Human-level Performance
+## III. Comparing with Human-level Performance
+![satisfice](images/hlp.png)
+### Why ?
+- TLDR: To know how much improvement is possible AND what tools to use to improve. 
+- `Before reaching HLP` : Use tools to improve that are *harder* to use after surpassing HLP. 
+  - *Get more labeled data from humans*: To train model better
+  - *Manual Error Analysis*: See why a human got this right and model wrong. Give model more of incorrect samples.
+  - *Bias/Variance Analysis*: Harder to do after crossing HLP. More later. 
+- `After reaching HLP`: If humans are close to matching Bayes Irreducible Error, then surpassing HLP may not leave lots 
+of room for improvement. 
