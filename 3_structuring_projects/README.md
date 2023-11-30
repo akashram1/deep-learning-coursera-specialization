@@ -63,12 +63,37 @@ Algo B: 5 % error but doesn't classify any cat images as porn.
 :star: **Don't overthink. Choose. Build. Iterate. Fast** :star:
 
 ## III. Comparing with Human-level Performance
+### 1. Why ?
 ![satisfice](images/hlp.png)
-### Why ?
-- TLDR: To know how much improvement is possible AND what tools to use to improve. 
+- To know how much improvement is possible AND what tools to use to improve. 
+- `Bayes Irreducible Error`: Too much noise in labels. Humans can't do well on this either. 
 - `Before reaching HLP` : Use tools to improve that are *harder* to use after surpassing HLP. 
   - *Get more labeled data from humans*: To train model better
   - *Manual Error Analysis*: See why a human got this right and model wrong. Give model more of incorrect samples.
   - *Bias/Variance Analysis*: Harder to do after crossing HLP. More later. 
 - `After reaching HLP`: If humans are close to matching Bayes Irreducible Error, then surpassing HLP may not leave lots 
 of room for improvement. 
+
+### 2. Avoidable Bias
+- HLP may or may not be close to Irreducible Bayes Error. But HLP error a *proxy* for Bayes error.
+- `Avoidable Bias` = Diff between training error and Bayes error. You can reduce by training more, bigger neural network etc. 
+- If training error is close to HLP, then focus on reducing `Variance`i.e. brining dev error closer to training error. 
+Regularization, getting more training data etc. 
+
+:star: You *can't* get lower training error than Bayes' error unless you **overfit** :star:
+![satisfice](images/avoidable_bias.png)
+
+- In some fields HLP error ~ `0%` (like cat recognition from images). But in other fields (like transcription from
+audio recording where speech is not clear), it's non 0. :star: Define HLP !!! tells you where to put effort. :star:
+
+### 3. Surpassing HLP
+- Places where ML surpasses HLP:
+  - Online Advertising
+  - Product Recommendations
+  - Loan Approval
+  - Logistics (predict transit time)
+- Interestingly all are :
+  - `structured data`. :star: **Not natural perception problems!** :star:
+    - Humans tend to be better at natural perception problems. But recently in some cases ML has surpassed. Medical
+    tasks (radiology)
+![satisfice](images/summary.png)
