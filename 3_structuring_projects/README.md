@@ -99,7 +99,10 @@ audio recording where speech is not clear), it's non 0. :star: Define HLP !!! te
 ![satisfice](images/summary.png)
 
 ## IV. Error Analysis
-:star: Spend a few hours to find and prioritize the *biggest sources* of error to solve. :star:
+Top 2 takeaways:
+- Build first model quickly. Iterate. 
+- :star: Spend a few hours of boring *manual effort* to find and prioritize the *biggest sources* of error to solve. :star:
+
 ### Manual Inspection
 - `Tackle Biggest Problem First`: Look at all misclassified instances. Find which images (%) make up most errors. Few hours well spent. 
 - `Evaluate multiple ideas in parallel`. 
@@ -111,3 +114,6 @@ audio recording where speech is not clear), it's non 0. :star: Define HLP !!! te
 It is robust to random errors. 
 - Do same as above. Check if systematic incorrect labels is a *big enough fish* to fry. 
 ![satisfice](images/incorrect_label_analysis.png)
+- If it's a big enough problem, apply label correction to both dev and test sets. :star: They should have same dist! :star:
+
+## V. Mismatched Training & Dev/Test Set

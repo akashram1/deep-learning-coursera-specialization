@@ -1,6 +1,5 @@
 # deep-learning-coursera-specialization
-Notebooks from the course where concepts are implemented from first principles. 
-
+Disclaimer: All content in this is from deeplearning.ai's DL Specialization.
 ## Heroes of Deep Learning Takeaways
 
 | Hero | Top Takeaway |
