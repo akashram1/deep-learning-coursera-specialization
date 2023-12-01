@@ -97,3 +97,17 @@ audio recording where speech is not clear), it's non 0. :star: Define HLP !!! te
     - Humans tend to be better at natural perception problems. But recently in some cases ML has surpassed. Medical
     tasks (radiology)
 ![satisfice](images/summary.png)
+
+## IV. Error Analysis
+:star: Spend a few hours to find and prioritize the *biggest sources* of error to solve. :star:
+### Manual Inspection
+- `Tackle Biggest Problem First`: Look at all misclassified instances. Find which images (%) make up most errors. Few hours well spent. 
+- `Evaluate multiple ideas in parallel`. 
+  - Some images maybe misclassified because they're blurry *and* from instagram. Check which sub-case has most issues. 
+  ![satisfice](images/error_analysis.png)
+
+### Cleaning Up Incorrectly Labeled Data
+- `Are Some Labels Consistently Noisy ?`: Did turks *systematically* label white dogs as cats ? DL not robust to this. 
+It is robust to random errors. 
+- Do same as above. Check if systematic incorrect labels is a *big enough fish* to fry. 
+![satisfice](images/incorrect_label_analysis.png)
