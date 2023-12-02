@@ -18,7 +18,7 @@ based on this eqn:
 - `F1 Score` better than using 2 metrics `Precision` and `Recall`. Coz if one model has better precision but other has
 better recall, which one do you choose ? Go with better `F1 score` (harmonic mean of the 2)
 - Use `average` error across classes. 
-- Helps :star: quick iteration !:star:
+- Helps quick iteration ! 
 
 ![single number metric](images/error_per_class.png)
 
@@ -117,3 +117,60 @@ It is robust to random errors.
 - If it's a big enough problem, apply label correction to both dev and test sets. :star: They should have same dist! :star:
 
 ## V. Mismatched Training & Dev/Test Set
+### How to handle few instances of target class.
+Eg: Train has : images of cats from web pages (`200K`). We care about images from mobile app. (`10K`)
+- *Don't* mix train + dev/test, shuffle and split. 
+  - This ensures all 3 sets have same distribution. 
+  - But very few instances of images from mobile app in training. So features from mobile app images not well learnt. 
+- *Do*: 
+  - Ensure distribution of dev/test is what you're interested in (mobile app images only!)
+  - Only as many dev/test needed to get reasonable measure of bias variance (`~2.5K` each)
+  - Add all remaining (`5K`) back to training. 
+
+### :star: Bias/Variance on Mismatched Training & Dev/Test sets :star:
+![satisfice](images/train_dev_set.png)
+- Keep aside a portion of train set: a `train-dev-set` , that has same distribution as train but *not* used to train. 
+  - `Why ?`: If `train` and `dev` sets have **different** distributions then you *can't* necessarily attribute high dev error
+  to overfitting on train set. Maybe model generalizes well but dev set has images that are *hard* to classify.  
+  - If train and dev have *same* distribution, and dev error is high, you can say overfitting to train set and not
+  generalizing well. (`Variance` problem)
+  - Orthogonalize the problem with train-dev set.  
+
+- More general formulation:
+![satisfice](images/general_formulation_data_mismatch.png)
+
+Questions:
+- *Can dev/test error ever be lower than train error ?*
+  - Yes. If the data in dev/test is *easier* to classify. 
+
+### How to solve Data Mismatch ?
+- Manual Error Analysis. Look at differences between train and dev sets. *Don't look at test set!!*. No decision should
+be made on model and training based on info from test set. That's why we have dev set. 
+- Make training set closer to dev set. How ?
+  - `Artificial Data Synthesis/ Data Augmentation`: 
+    - Ng says he's seen this *significantly* improve performance in speech
+    recognition. 
+    - :star: Caution: You might *oversample* a tiny space of all possible datapoints. 
+
+## VI. Learning from Multiple Tasks
+### Transfer Learning
+![none](images/transfer.png)
+
+### Multi-task Learning
+![none](images/multi-task-learning.png)
+- Build a single neural network that solves multiple classifications. In 1 image predict if it has pedestrian, car, crosswalk, stop sign. 
+- Prediction will be `(4, m)` matrix. 
+- Objective will be `Logistic Loss` over 4 classes per data point. 
+- Training set does *not* need to have all 4 labels for each data point. 
+  - In this case, loss will skip summation over labels that are *missing* for a training sample. 
+- Better than building 4 different neural networks when:
+![none](images/mtl_when.png)
+
+:star: If you have big enough NN MTL almost always outperforms single NN. 
+- Object detection in CV is most common use case of MTL. 
+- It's rare to want to detect so many other labels in a single datapoint outside this. 
+
+Transfer learning used more often in practice. If you have a small dataset think of this :star:
+
+
+## VII. End To End Deep Learning
