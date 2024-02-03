@@ -131,7 +131,8 @@ Eg: Train has : images of cats from web pages (`200K`). We care about images fro
 ![satisfice](images/train_dev_set.png)
 - Keep aside a portion of train set: a `train-dev-set` , that has same distribution as train but *not* used to train. 
   - `Why ?`: If `train` and `dev` sets have **different** distributions then you *can't* necessarily attribute high dev error
-  to overfitting on train set. Maybe model generalizes well but dev set has images that are *hard* to classify.  
+  to overfitting on train set. Maybe model generalizes well but dev set has images that are *hard* to classify.
+    - *Hard* to classify = Bayes error for that dataset is higher. 
   - If train and dev have *same* distribution, and dev error is high, you can say overfitting to train set and not
   generalizing well. (`Variance` problem)
   - Orthogonalize the problem with train-dev set.  
@@ -174,3 +175,23 @@ Transfer learning used more often in practice. If you have a small dataset think
 
 
 ## VII. End To End Deep Learning
+- is where you feed data directly into a large network and get outputs. (No hand-design of features)
+- *Pros*:
+  - Let the data speak
+  - No need for feature engineering. 
+- *Cons*:
+  - You need large amount of data to allow a complex enough network to learn patterns. 
+  - Excludes potentially useful hand-designed components that could help improve perfomance with less data.
+
+### Where it works
+- Audio -> Transcript. 
+  - Previously researchers spent years using ML to identify :
+  ```
+  audio -> features -> phonemes -> words -> transcript
+  ```
+- Language Translation. 
+  - Get (English, French translation) pairs. Today it's possible to feed english words and get french out on the other side. 
+### Where it's not working yet. 
+- Image -> Face Recognition.
+  - `What's Working`: Image -> Identify Face in image (ML problem #1) -> Recognize Face (Problem #2)
+    - Coz features needed for each ML problem are different with less data. 
