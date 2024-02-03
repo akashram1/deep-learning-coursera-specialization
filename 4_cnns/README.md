@@ -29,7 +29,7 @@ In bigger images with more pixels, the thickness will line up.
   - Convolution reduces image size. So you can convolve only so many times until it's `1x1`. Adding padding allows convolved image to have 
   same dimension as original image => more convolutions possibles => More features detectable. 
   - 
-### Valid & Same Convolutions
+#### Valid & Same Convolutions
 - *Valid*: 
   - `(nxn) * (fxf) = (n-f+1,n-f+1)` (Size reduction)
   - No padding
@@ -40,4 +40,14 @@ In bigger images with more pixels, the thickness will line up.
     - So padding to ensure same dim as original image: 
 ```math
 p = \frac{f-1}{2}
+```
+:star: *Why are odd sized `f` values most common ?* :star:
+- So that padding (`p`) on either side is a whole number!
+- Kernel has a central pixel. Helpful to talk about position of filter. 
+
+### Strides
+- Instead of moving filter, one pixel hori/vertically, take `s` jumps. 
+- Intuition: Regularizing effect potentially ? Since you're reducing contribution of each pixel towards feature detection.
+```math
+\floor{\frac{n+2p-f}{s} + 1}
 ```
