@@ -49,5 +49,6 @@ p = \frac{f-1}{2}
 - Instead of moving filter, one pixel hori/vertically, take `s` jumps. 
 - *My Guess* (:star:): Regularizing effect potentially ? Since you're reducing contribution of each pixel towards feature detection.
 ```math
-\floor{\frac{n+2p-f}{s} + 1}
+$\lfloor {n+2p-f}{s} + 1  \rfloor$
 ```
+
