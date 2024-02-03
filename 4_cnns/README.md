@@ -9,7 +9,7 @@
 - `filter` = `kernel`.
 - Convolution = Element wise product (`*`) between sub-matrix of a matrix and filter.
 - The kernel value determines what kind of object it's detecting. 
-- `(r,c) image * (x,y) filter = (r+x-1, c+y-1) convolved image`
+- `(r,c) image * (x,y) filter = (r-x+1, c-y+1) convolved image`
 ### Edge Detection
 ![vertical](images/1_vertical_edge.png)
 - Higher values = brighter pixels.
@@ -23,3 +23,21 @@ In bigger images with more pixels, the thickness will line up.
   Note: If you don't care about transition => Use absolute value of convolved image.
   ```
 ### Padding
+- Purpose: 
+  - To give more weight to information in edge, corner pixels that are otherwise convolved once. Central pixels part of many 
+  more convolutions. 
+  - Convolution reduces image size. So you can convolve only so many times until it's `1x1`. Adding padding allows convolved image to have 
+  same dimension as original image => more convolutions possibles => More features detectable. 
+  - 
+### Valid & Same Convolutions
+- *Valid*: 
+  - `(nxn) * (fxf) = (n-f+1,n-f+1)` (Size reduction)
+  - No padding
+- *Same*: 
+  - `(n+2p x n+2p) * (fxf) = (n+2p-f+1,n+2p-f+1)`
+  - To ensure same size as original:
+    - `n+2p-f+1 = n`
+
+```math
+a = \frac{a+b}{c}
+```
