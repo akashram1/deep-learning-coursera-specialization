@@ -37,7 +37,6 @@ In bigger images with more pixels, the thickness will line up.
   - `(n+2p x n+2p) * (fxf) = (n+2p-f+1,n+2p-f+1)`
   - To ensure same size as original:
     - `n+2p-f+1 = n`
-
-```math
-a = \frac{a+b}{c}
+    - So padding to ensure same dim as original image:```math
+p = \frac{f-1}{2}
 ```
