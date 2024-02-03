@@ -47,7 +47,7 @@ p = \frac{f-1}{2}
 
 ### Strides
 - Instead of moving filter, one pixel hori/vertically, take `s` jumps. 
-- Intuition: Regularizing effect potentially ? Since you're reducing contribution of each pixel towards feature detection.
+- *My Guess* (:star:): Regularizing effect potentially ? Since you're reducing contribution of each pixel towards feature detection.
 ```math
 \floor{\frac{n+2p-f}{s} + 1}
 ```
