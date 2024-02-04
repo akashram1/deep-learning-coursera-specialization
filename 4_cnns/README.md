@@ -5,6 +5,8 @@
 - Edge Detection
 - Padding
 - Strides
+- Convolving over volumes
+
 ### Convolution
 - `filter` = `kernel`.
 - Convolution = Element wise product (`*`) between sub-matrix of a matrix and filter.
@@ -49,6 +51,41 @@ p = \frac{f-1}{2}
 - Instead of moving filter, one pixel hori/vertically, take `s` jumps. 
 - *My Guess* (:star:): Regularizing effect potentially ? Since you're reducing contribution of each pixel towards feature detection.
 ```math
-$\lfloor \frac{n+2p-f}{s} + 1  \rfloor$
+\lfloor \frac{n+2p-f}{s} + 1  \rfloor
 ```
 
+### Convolving over volumes
+ ![volume](images/3_volume.png)
+ 
+- Each filter *set* has `n_c` channels. Same as image. 
+- 1 convolution of 1 filter set with image yields *1 number*!
+- Multiple filters (read filter set) per layer can extract multiple features per layer. 
+
+```math
+n x n x n_c * f x f x n_c = (n -f + 1) x (n -f + 1) x n_c1
+```
+- n_c1 = number of filter sets per layer. 
+
+:star: *Reason why params in CV remain small even if images are big* :star:
+- Only small number of filters needed (10) to detect all sorts of features.  
+- With 10 filters, each of size `3x3x3` with 1 bias, you'd only needed `28 * 10 = 280` params. 
+
+
+## II. Notation
+ ![notation](images/4_notation.png)
+ 
+## III. Observations of hyperparam trends
+across a deep CNN. 
+ ![hyperparam_trends](images/5_param_trends.png)
+From start to end layer:
+- Channels increase
+- H and W of images decrease.
+
+## IV. Pooling
+- Same formula as conv layers. Usually with `s=2 and f = 2`
+- :star: Difference!: Applies on each channel! There's only 1 max pool filter that applies to each channel. `n_c=1` 
+- Since there are no hyperparams to learn, makes backprop easy!
+- Inutition: Max pool finds most prominent feature in each subregion. 
+
+ ![hyperparam_trends](images/6_max_pooling.png)
+- Usually reduces image size by half (`s=2 and f=2`)
