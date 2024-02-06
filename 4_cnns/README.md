@@ -95,3 +95,23 @@ From start to end layer:
 
  ![hyperparam_trends](images/7_full_cnn_arch.png)
  
+### Param Counts
+- Most of the params are in fully connected layers. 
+- Activation size gradually decreases. A sharp decrease => info loss. 
+ ![cnn](images/8_param_counts.png)
+
+## V. Why Convolutions ?
+Instead of just fully connected layers ?
+
+### Practical Reason:
+- *Without* conv, param explosion. A `(32,32,3)` image (`3072`) to a `(28,28,6)` (`4704`) will need a fcc with 3k * 4k = 
+`~14M` params (ignoring bias) :scream:
+ ![cnn](images/10_why_conv.png)
+
+### Why it works:
+- You don't need to connect every input pixel to every node. Weights (in the filter) learn features in different parts
+of image that can apply to other parts (`Parameter Sharing`). 
+- `Sparsity of Connections`: The top left most pixel is only contributed to by top left quadrant of image. Each output
+value depends only on small number of inputs NOT ALL!!!! Has a *regularizing* effect. 
+
+ ![cnn](images/9_why_conv.png)
