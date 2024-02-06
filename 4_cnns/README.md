@@ -89,3 +89,9 @@ From start to end layer:
 
  ![hyperparam_trends](images/6_max_pooling.png)
 - Usually reduces image size by half (`s=2 and f=2`)
+- Layers = have weights. So 1 layer = pooling layer combined with conv layer. 
+
+:star: Don't select your own architecture and hyperparams. Use what's worked well in literature :star:
+
+ ![hyperparam_trends](images/7_full_cnn_arch.png)
+ 
