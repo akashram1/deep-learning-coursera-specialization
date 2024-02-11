@@ -110,8 +110,15 @@ Instead of just fully connected layers ?
 
 ### Why it works:
 - You don't need to connect every input pixel to every node. Weights (in the filter) learn features in different parts
-of image that can apply to other parts (`Parameter Sharing`). 
+of image that can apply to other parts (`Parameter Sharing`). This allows cnn to capture translational invariance. 
 - `Sparsity of Connections`: The top left most pixel is only contributed to by top left quadrant of image. Each output
 value depends only on small number of inputs NOT ALL!!!! Has a *regularizing* effect. 
 
+
  ![cnn](images/9_why_conv.png)
+ 
+## Quiz takeaways:
+![cnn](images/11_vertical_edge_detector.png)
+ - If diff between left half and right half high => vertical edge detector. 
+ - If diff between upper half and lower half high => horizontl edge detector. 
+
