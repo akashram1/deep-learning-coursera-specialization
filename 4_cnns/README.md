@@ -122,3 +122,4 @@ value depends only on small number of inputs NOT ALL!!!! Has a *regularizing* ef
  - If diff between left half and right half high => vertical edge detector. 
  - If diff between upper half and lower half high => horizontl edge detector. 
 
+## CNN Backpropagation Insights
