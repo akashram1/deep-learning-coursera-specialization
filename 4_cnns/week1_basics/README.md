@@ -1,4 +1,4 @@
-# Course 4: Convolutional Neural Networks
+# Course 4: Convolutional Neural Networks (Basics)
 
 ## I. Basics
 - Convolution
