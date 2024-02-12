@@ -13,14 +13,14 @@
 - The kernel value determines what kind of object it's detecting. 
 - `(r,c) image * (x,y) filter = (r-x+1, c-y+1) convolved image`
 ### Edge Detection
-![vertical](images/1_vertical_edge.png)
+![vertical](../week1_basics/images/1_vertical_edge.png)
 - Higher values = brighter pixels.
 - The detected edge is thicker in the convolved image than original since image is small. 
 In bigger images with more pixels, the thickness will line up. 
 - 1s in first col and -1 in third col of filter =>
   - Bright convolved edge = transition from light to dark.
   - Dark convolved edgfe = transition from dark to light.
-  ![vertical](images/2_transitions.png)
+  ![vertical](../week1_basics/images/2_transitions.png)
   ```
   Note: If you don't care about transition => Use absolute value of convolved image.
   ```
@@ -55,7 +55,7 @@ p = \frac{f-1}{2}
 ```
 
 ### Convolving over volumes
- ![volume](images/3_volume.png)
+ ![volume](../week1_basics/images/3_volume.png)
  
 - Each filter *set* has `n_c` channels. Same as image. 
 - 1 convolution of 1 filter set with image yields *1 number*!
@@ -72,11 +72,11 @@ n x n x n_c * f x f x n_c = (n -f + 1) x (n -f + 1) x n_c1
 
 
 ## II. Notation
- ![notation](images/4_notation.png)
+ ![notation](../week1_basics/images/4_notation.png)
  
 ## III. Observations of hyperparam trends
 across a deep CNN. 
- ![hyperparam_trends](images/5_param_trends.png)
+ ![hyperparam_trends](../week1_basics/images/5_param_trends.png)
 From start to end layer:
 - Channels increase
 - H and W of images decrease.
@@ -87,18 +87,18 @@ From start to end layer:
 - Since there are no hyperparams to learn, makes backprop easy!
 - Inutition: Max pool finds most prominent feature in each subregion. 
 
- ![hyperparam_trends](images/6_max_pooling.png)
+ ![hyperparam_trends](../week1_basics/images/6_max_pooling.png)
 - Usually reduces image size by half (`s=2 and f=2`)
 - Layers = have weights. So 1 layer = pooling layer combined with conv layer. 
 
 :star: Don't select your own architecture and hyperparams. Use what's worked well in literature :star:
 
- ![hyperparam_trends](images/7_full_cnn_arch.png)
+ ![hyperparam_trends](../week1_basics/images/7_full_cnn_arch.png)
  
 ### Param Counts
 - Most of the params are in fully connected layers. 
 - Activation size gradually decreases. A sharp decrease => info loss. 
- ![cnn](images/8_param_counts.png)
+ ![cnn](../week1_basics/images/8_param_counts.png)
 
 ## V. Why Convolutions ?
 Instead of just fully connected layers ?
@@ -106,7 +106,7 @@ Instead of just fully connected layers ?
 ### Practical Reason:
 - *Without* conv, param explosion. A `(32,32,3)` image (`3072`) to a `(28,28,6)` (`4704`) will need a fcc with 3k * 4k = 
 `~14M` params (ignoring bias) :scream:
- ![cnn](images/10_why_conv.png)
+ ![cnn](../week1_basics/images/10_why_conv.png)
 
 ### Why it works:
 - You don't need to connect every input pixel to every node. Weights (in the filter) learn features in different parts
@@ -115,10 +115,10 @@ of image that can apply to other parts (`Parameter Sharing`). This allows cnn to
 value depends only on small number of inputs NOT ALL!!!! Has a *regularizing* effect. 
 
 
- ![cnn](images/9_why_conv.png)
+ ![cnn](../week1_basics/images/9_why_conv.png)
  
 ## Quiz takeaways:
-![cnn](images/11_vertical_edge_detector.png)
+![cnn](../week1_basics/images/11_vertical_edge_detector.png)
  - If diff between left half and right half high => vertical edge detector. 
  - If diff between upper half and lower half high => horizontl edge detector. 
 
