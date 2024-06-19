@@ -100,6 +100,13 @@ From start to end layer:
 - Activation size gradually decreases. A sharp decrease => info loss. 
  ![cnn](../week1_basics/images/8_param_counts.png)
 
+
+ - In above, why are there 456 params in CONV1 ?
+```
+Filter Size * Number of channels in input image * Number of filter sets in layer 1 + Biases
+5*5         * 3                                 * 6 + 6
+```
+
 ## V. Why Convolutions ?
 Instead of just fully connected layers ?
 

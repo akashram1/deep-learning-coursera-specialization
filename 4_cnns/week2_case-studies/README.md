@@ -62,3 +62,27 @@ Ease of reading papers: Alex -> VGG -> Le
 ![resnet](images/5_resnet_2.png)
 
 ### Intuition: Why ResNets work well ?
+- Deeper networks => vanishing gradients => performance on training set deteriorates.
+:star: How do residual networks prevent vanishing gradient ? :star: 
+
+![resnet](images/6_why_resnet_works.png)
+
+- a<sup>[l]</sup> is ReLU output. So only positive values. 
+- If L2 regularization makes W<sup>[l+2]</sup> and b<sup>[l+2]</sup> tend to 0 then 
+a<sup>[l+2]</sup> = g(a<sup>[l]</sup>)
+- g(a<sup>[l]</sup>) = a<sup>[l]</sup> (since g is ReLU and ReLU on relu output = output)
+- So ResNet pretty good at learning identity functions when weights decay. 
+- As good as not having layers `l+1` and `l+2`
+ 
+:star: How does the math work out ?
+- We're assuming z<sup>[l+2]</sup> and a<sup>[l]</sup> have same dimensions
+#### Option 1: Same Convolution
+- To implement this Resnet skip connection, ensure *same* convolution. Can preserve shape across layers.
+#### Option 2: Multiply by a learnable weights W
+
+![resnet](images/7_resnet_math.png)
+- To make a<sup>[l]</sup> same dimensions as z<sup>[l+2]</sup> multiply by W<sup>s</sup> which can be:
+  - Learnable matrix of parameters. R<sup>256x128</sup> OR
+- Or use zero padding to make a<sup>[l]</sup> 256 dimensional
+
+## III. 1 x 1 Convolutions
