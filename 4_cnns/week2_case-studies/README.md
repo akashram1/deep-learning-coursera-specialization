@@ -86,3 +86,16 @@ a<sup>[l+2]</sup> = g(a<sup>[l]</sup>)
 - Or use zero padding to make a<sup>[l]</sup> 256 dimensional
 
 ## III. 1 x 1 Convolutions
+- Captures information along 1 pixel slice across all channels in input image. 
+- Way to reduce number of channels while keeping n<sup>[l]</sup><sub>h</sub> = n<sup>[l+1]</sup><sub>h</sub> and
+n<sup>[l]</sup><sub>w</sub> = n<sup>[l+1]</sup><sub>w</sub>.  Just use number of filters < number of input channels.
+- :star: Pooling layers just used to shrink n<sub>w</sub> and n<sub>h</sub> while keeping channels fixed. :star: 
+
+```
+Keep h and w fixed, reduce channels => 1x1 Convolution
+Reduce h and w, keep channels fixed ==> Max pool
+```
+- If you want to keep n<sub>c<\sub> the same, 1x1 conv just adds *non-linearity* to input. 
+
+
+## IV. Inception Network
