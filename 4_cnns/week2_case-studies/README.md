@@ -1,7 +1,7 @@
 # Course 4: Convolutional Neural Networks (Week 2: Case Studies)
 :star: Always learn from other case studies. Don't re-invent the wheel ! :star:
 ------------------------
-## Classic Networks
+## I. Classic Networks
 ### LeNet 5 (1998)
 - Greyscale digit 
 - Avg pooling with `s=2`. Max pool more common today 
@@ -44,6 +44,21 @@ Not common today but in this:
 - VGG-19 even bigger than this. VGG-16 performs similarly to this. So ppl use VGG-16. 
 
 ![vgg16](images/3_vgg.png)
+
+Ease of reading papers: Alex -> VGG -> Le
 ----------------------------
 
-## ResNets
+## II. ResNets (2015)
+- Deep Neural Networks are hard to train due to vanishing and exploding gradients. 
+- Res = Residual Networks
+- Skip connections help with this problem. Combine `a^l` with linear sum of `a^[l+1]` *before* ReLU of `l+1`.
+- Stacking of many such layers `l, l+1` with skip connection (residual blocks) to form deep NN
+![resnet](images/4_resnet.png)
+
+
+- Can help with vanishing gradient even if very deep (1000 layers+). But in practice only ~100 odd layers seen. 
+- Theory: Very deep neural networks can overfit training set. Reality: Training error goes up with number of layers. Why ?:
+  - Optimization algorithms struggle to train deep NN due to vanishing gradients. 
+![resnet](images/5_resnet_2.png)
+
+### Intuition: Why ResNets work well ?
