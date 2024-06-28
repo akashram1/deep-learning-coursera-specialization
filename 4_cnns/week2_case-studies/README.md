@@ -217,3 +217,52 @@ Pointwise = Operations across channels on 1 cell.
 - Way to select ratios of r,d and h 
 
 ![resnet](images/17_efficient_net.png)
+
+# Week 2: Practical Advice on Conv Nets
+------------------------
+## Using Open Source Implementations
+- Download someone's pre-trained model reuse. 
+
+## Transfer Learning
+
+- When to freeze/add new layers on frozen layers
+  - Most data => Train all layers, using downloaded weights as initialization.
+  - More data => Freeze fewer layers, add more layers on top. 
+  - Less data => Freeze more layers. Just train `softmax` layer
+- For a lot of CV applications:
+  - So much data available and training done already. :star: *Almost always using a pre-trained network better than 
+  training from scratch* :star:
+  - Only time worth doing from scratch -> extremely (?) large dataset yourself. 
+  
+![resnet](images/18_transfer_learning.png)
+
+## Data Augmentation
+- Mirroring
+- Random Cropping 
+- Less commonly used: Rotation, Shearing, Local Warping
+
+- Color Shifting (change R,G,B channels)
+  - Accounts for changes in illumination
+  - `PCA Color Augmentation` (details in AlexNet paper): If your image has high RB low G, it will reduce RB and increase G.
+
+- Implementing Distortions:
+  - Can run in parallel to training. Each mini-batch selected and distorted by a thread.
+
+![resnet](images/19_impl_distortions.png)
+
+## State of CV
+- Lots of data but not lots of relevant data. So more time spent on hand-engineering features,
+network architecture design etc. 
+
+![resnet](images/20_data_vs_hand_engineering.png)
+
+### Tips for doing well on benchmarks (not production)
+- Better odds of paper being accepted if it's on benchmark. Helps community. 
+- Ensembling wins competitions but not used in production due to budgets. 
+- Multicrop: Take edge crops of each image (mirrored and unmirrored)
+![resnet](images/21_doing_well_on_benchmarks.png)
+
+### Use Open Source Code!
+- Architectures on leaderboards and papers
+- Don't re-impl architecture. Use open-source impls
+- Use pretrained models and fine-tune on dataset (transfer)
