@@ -185,3 +185,35 @@ the best performance.
 Depthwise = Operations only all cells of 1 input channel only.
 Pointwise = Operations across channels on 1 cell.
 ```
+
+- Therefore replace expensive normal conv with depthwise-separable convolution
+
+### MobileNet v1
+- Depthwise separable module repeated `13` times. Ends with pool, FC and softmax
+
+![resnet](images/16_mobile_net.png)
+### MobileNet v2
+- New `bottleneck` module with 2 main changes:
+  - Addition of `Residual connection`:
+    - Like skip connection. Solves vanishing gradient
+  - `Expansion -> Depthwise -> Projection (same as pointwise)`
+- Above module repeats 17 times -> Pool -> FC -> Softmax
+- `Expansion`:
+  - 1x1 normal convolution with more filters than input channels (hence expansion)
+  - n<sub>c'</sub> ~ 6 * n<sub>c</sub>
+- `Depthwise`:
+  - Same convolution. No shrinking with depthwise. 
+- `Projection`
+  - Pointwise with fewer filters reduces tensor shape. 
+
+- Why is bottleneck needed ?
+  - Expansion: Increases size of representation within bottlneck. NN learns richer representation. 
+  - Pointwise/Projection: Reducing size. Amount of memory needed to pass info from layer to layer is kept fixed / capped. 
+
+## VI. EfficientNet
+- How to *fine tune * mobile net for different edge devices.
+  - Some phones with more memory you can get more accuracy with high speed
+  - Phones wiht lower memory, you can choose speed over accuracy.
+- Way to select ratios of r,d and h 
+
+![resnet](images/17_efficient_net.png)
