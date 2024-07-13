@@ -99,6 +99,23 @@ OverFeat 2014 paper.
   - Get rid of low probability predictions. 
   - For each class, run non-max suppression to generate final predictions. 
 
+## Region Proposal Algorithms
+- `R-CNN: Regions CNN`: Picks regions in pic where its worth to run CNN. 
+  - 2013 Girshik et. all
+  - Selecting regions using segmentation.
+  - Classify regions one at a time. 
+  - Output: Label and bounding-box per region (It doesn't trust the bounding box it was given)
+  - Problem: Slow
+- `Fast R-CNN`:
+- 2015 Girshik
+  - Convolutional implementation of sliding windows. Similar to above concept. 
+  - Problem: 
+    - Region selection is slow. 
+- `Faster R-CNN`:
+  - Ren et.al 2016
+  - Use CNN to _propose_ regions. 
+- Ng prefers one algo to do it all (Yolo) over a 2 step algo (region proposal then object detection). But opinions differ
+
 ## Semantic Segmentation
 - SS: Rather than detecting objects, _label every single pixel_. 
   - SS used by self-driving. Which pixels are safe to drive over.
@@ -130,4 +147,5 @@ In the encoder: Tensors become smaller but deeper. Reverse in decoder.
     - Higher resolution spatial resolution & low-level features :from lower layers. 
 ![week3](images/7_unet_arch.png)
   - Note the skip connection between each mirror layer. It's not just between first and last layers !
-  - 
+
+
