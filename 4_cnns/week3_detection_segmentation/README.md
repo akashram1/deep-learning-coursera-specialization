@@ -6,7 +6,8 @@
 ### Object Localization
 _Define bounding box of an object_
 Output vector for 3-way classification has:
-- p<sub>c</sub> : is object in image or not = (0,1)
+- p<sub>c</sub> : confidence of an object (from various classes) being in bounding box
+  - Probability a motorcycle or person or car is in grid cell. 
 - b<sub>x</sub> : centre x coordinate of object
 - b<sub>y</sub> : centre y coordinate of object
 - b<sub>h</sub> : height of object: Fraction of overall height of image
@@ -149,3 +150,19 @@ In the encoder: Tensors become smaller but deeper. Reverse in decoder.
   - Note the skip connection between each mirror layer. It's not just between first and last layers !
 
 
+## Takeaways from coding exercise:
+-  p<sub>c</sub> is probability of object of _some_ class being present in a certain anchor box of a certain grid cell
+  - Each grid cell will have as many p<sub>c</sub>s as anchor boxes. 
+- c<sub>i</sub> is probability that object belongs to class _i_
+- **Broadcasting** (revision):
+  - `np.array([[1,1,1], [2,2,2]]) * np.array([0.5]`
+  - multiplying arrays of different shapes
+- If `a.shape = (a,b)` then 
+  - `np.argmax(a, axis=0)`: index of max for each col *across all rows* : result shape = `(b, )` 
+  - `np.argmax(a, axis=1)`: index of max for each row *across all columns*: result shape = `(a, )`
+  - ![week3](images/8_argmax.png)
+  - For higher dimensions, `argmax.shape = a.shape (excluding axis dim) (collapsing the axis for which max applied)`
+    - ![week3](images/9_argmax2.png)
+  - BatchNorm after linear sum and before ReLU
+  - Coding exercise: best way to learn YOLO. Steps very clear
+    - ![week3](images/10_yolo_summary.png)
